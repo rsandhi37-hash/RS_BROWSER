@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RS Browser · Horizon</title>
-    <!-- Google Fonts: Playfair Display (headings) & Poppins (body) - no generic fallbacks -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome for a crisp search icon (CDN) -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* ----- CSS RESET & VARIABLES (cohesive, deep palette) ----- */
         * {
             margin: 0;
             padding: 0;
@@ -17,19 +16,19 @@
         }
 
         :root {
-            --night-sky: #0B1026;       /* deep almost-black blue */
-            --horizon-glow: #1B2B4F;    /* rich navy with a hint of life */
-            --ember: #F26B5E;            /* sharp coral accent, not purple */
-            --dusty-rose: #C89F9C;       /* muted warm contrast */
-            --text-light: #EAEFF5;        /* off-white for readability */
+            --night-sky: #0B1026;
+            --horizon-glow: #1B2B4F;
+            --ember: #F26B5E;
+            --dusty-rose: #C89F9C;
+            --text-light: #EAEFF5;
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
         }
 
         body {
             min-height: 100vh;
+            height: 100vh;
             background: var(--night-sky);
-            /* Layered gradient + geometric pattern (atmosphere & depth) */
             background-image: 
                 radial-gradient(circle at 10% 20%, rgba(242, 107, 94, 0.08) 0%, transparent 30%),
                 radial-gradient(circle at 90% 70%, rgba(200, 159, 156, 0.06) 0%, transparent 35%),
@@ -42,8 +41,20 @@
             justify-content: center;
             padding: 1.5rem;
             line-height: 1.6;
-            /* subtle geometric overlay */
             position: relative;
+            overflow: hidden;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: var(--night-sky);
+            z-index: 9999;
+            pointer-events: none;
         }
 
         body::before {
@@ -56,7 +67,6 @@
             z-index: 0;
         }
 
-        /* main content layer above the pattern */
         .centerpiece {
             position: relative;
             z-index: 2;
@@ -64,10 +74,119 @@
             width: 100%;
             text-align: center;
             animation: fadeGlideUp 1.2s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
-            opacity: 0; /* starts invisible, revealed by animation */
+            opacity: 0;
+            transform: translateY(-10%);
         }
 
-        /* ----- STAGGERED REVEALS (orchestrated page load) ----- */
+        @keyframes fadeGlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) translateY(-10%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) translateY(-10%);
+            }
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--night-sky);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--glass-border);
+            border-top-color: var(--ember);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--night-sky);
+            z-index: 10001;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .error-screen.show {
+            display: flex;
+        }
+
+        .error-content {
+            text-align: center;
+            max-width: 400px;
+            padding: 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+        }
+
+        .error-content i {
+            font-size: 4rem;
+            color: var(--ember);
+            margin-bottom: 1rem;
+        }
+
+        .error-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dusty-rose);
+        }
+
+        .error-content p {
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .error-content button {
+            background: var(--ember);
+            border: none;
+            border-radius: 60px;
+            padding: 0.9rem 2.2rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #0B1026;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .error-content button:hover {
+            background: #ff8578;
+            transform: scale(1.02);
+        }
+
         .title-block {
             opacity: 0;
             animation: fadeGlideUp 1s ease-out forwards;
@@ -92,18 +211,6 @@
             animation-delay: 1s;
         }
 
-        @keyframes fadeGlideUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ----- TYPOGRAPHY (distinctive) ----- */
         h1 {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
@@ -132,7 +239,6 @@
             backdrop-filter: blur(2px);
         }
 
-        /* ----- SEARCH BAR (modern glassmorphism) ----- */
         .search-wrapper {
             display: flex;
             align-items: center;
@@ -166,7 +272,7 @@
             font-weight: 300;
             color: white;
             outline: none;
-            min-width: 0; /* flex overflow fix */
+            min-width: 0;
         }
 
         #searchInput::placeholder {
@@ -202,7 +308,6 @@
             transform: scale(0.98);
         }
 
-        /* small footnote */
         .footnote {
             margin-top: 3rem;
             font-size: 0.9rem;
@@ -212,8 +317,39 @@
             color: var(--dusty-rose);
         }
 
-        /* responsive touch */
+        /* DuckDuckGo logo style */
+        .search-info {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--dusty-rose);
+            opacity: 0.7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .search-info i {
+            color: var(--ember);
+            font-size: 0.9rem;
+        }
+
         @media (max-width: 500px) {
+            .centerpiece {
+                transform: translateY(-5%);
+            }
+            
+            @keyframes fadeGlideUp {
+                0% {
+                    opacity: 0;
+                    transform: translateY(20px) translateY(-5%);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0) translateY(-5%);
+                }
+            }
+            
             .search-wrapper {
                 flex-wrap: wrap;
                 background: rgba(0,0,0,0.3);
@@ -235,6 +371,21 @@
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Error Screen -->
+    <div class="error-screen" id="errorScreen">
+        <div class="error-content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h2>Connection Lost</h2>
+            <p>Network issue detected. Please check your internet connection and try again.</p>
+            <button onclick="retryConnection()">Try Again</button>
+        </div>
+    </div>
+
     <div class="centerpiece">
         <div class="title-block">
             <h1>RS Browser</h1>
@@ -243,12 +394,15 @@
             <span>horizon</span>
         </div>
 
-        <!-- Search container with working search logic -->
         <div class="search-container">
             <div class="search-wrapper">
                 <i class="fas fa-compass"></i>
-                <input type="text" id="searchInput" placeholder="explore or search..." value="">
+                <input type="text" id="searchInput" placeholder="Search or type a URL..." value="">
                 <button id="searchButton">GO</button>
+            </div>
+            <div class="search-info">
+                <i class="fas fa-lock"></i>
+                <span>Private search by RS Browser</span>
             </div>
         </div>
 
@@ -259,33 +413,77 @@
 
     <script>
         (function() {
-            // Get references to elements
+            const loadingScreen = document.getElementById('loadingScreen');
+            const errorScreen = document.getElementById('errorScreen');
             const searchInput = document.getElementById('searchInput');
             const searchButton = document.getElementById('searchButton');
 
-            // Function to perform the search or load URL
+            // Hide loading screen after page load
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    loadingScreen.classList.add('hidden');
+                }, 500);
+            });
+
+            // Network status check
+            function checkNetwork() {
+                if (!navigator.onLine) {
+                    errorScreen.classList.add('show');
+                } else {
+                    errorScreen.classList.remove('show');
+                }
+            }
+
+            // Retry connection
+            window.retryConnection = function() {
+                if (navigator.onLine) {
+                    errorScreen.classList.remove('show');
+                } else {
+                    alert('Still offline. Please check your connection.');
+                }
+            };
+
+            // Listen for online/offline events
+            window.addEventListener('online', function() {
+                errorScreen.classList.remove('show');
+            });
+
+            window.addEventListener('offline', function() {
+                errorScreen.classList.add('show');
+            });
+
+            // Initial network check
+            checkNetwork();
+
+            // Function to perform search/URL navigation with DuckDuckGo
             function performSearch() {
                 let query = searchInput.value.trim();
                 if (query === '') return;
 
-                // Check if it looks like a domain (very simple regex: contains at least one dot, no spaces)
-                // If it looks like a URL, redirect to that site with https://
-                // Otherwise, Google search.
+                // Check network before proceeding
+                if (!navigator.onLine) {
+                    errorScreen.classList.add('show');
+                    return;
+                }
+
                 let url;
-                // matches strings like "example.com", "sub.domain.org", but not if it contains spaces or starts with http
-                const domainPattern = /^[^\s]+\.[^\s]{2,}$/; // simplistic but works for typical input
+                const domainPattern = /^[^\s]+\.[^\s]{2,}$/;
 
                 if (domainPattern.test(query) && !query.startsWith('http')) {
                     url = 'https://' + query;
                 } else if (query.startsWith('http://') || query.startsWith('https://')) {
-                    url = query; // keep as is
+                    url = query;
                 } else {
-                    // Google search
-                    url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+                    // DuckDuckGo search (privacy focused)
+                    url = 'https://duckduckgo.com/?q=' + encodeURIComponent(query);
                 }
 
-                // Redirect current browser (WebView) to the url
-                window.location.href = url;
+                // Try to navigate, show error if fails
+                try {
+                    window.location.href = url;
+                } catch (error) {
+                    errorScreen.classList.add('show');
+                }
             }
 
             // Event listeners
@@ -301,8 +499,14 @@
                 }
             });
 
-            // Optional: put focus into input for immediate typing
+            // Focus input
             searchInput.focus();
+
+            // Hide address bar on mobile
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            window.scrollTo(0, 1);
         })();
     </script>
 </body>
