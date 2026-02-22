@@ -79,7 +79,7 @@ class UserPreferences @Inject constructor(
     /**
      * The URL of the selected homepage.
      */
-    var homepage by preferences.stringPreference(HOMEPAGE, SCHEME_BOOKMARKS)
+    var homepage by preferences.stringPreference(HOMEPAGE, "file:///android_asset/index.html")
 
     /**
      * True if cookies should be enabled in incognito mode, false otherwise.
