@@ -1,0 +1,32 @@
+name: Build RS Browser Premium APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    - name: Make Gradlew Executable
+      run: chmod +x gradlew
+
+    - name: Build APK
+      run: ./gradlew assembleDebug
+
+    - name: Upload APK File
+      uses: actions/upload-artifact@v4
+      with:
+        name: RS-Browser-Premium
+        path: app/build/outputs/apk/debug/*.apk
