@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS Browser · Horizon</title>
+    <!-- Google Fonts: Playfair Display (headings) & Poppins (body) - no generic fallbacks -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for a crisp search icon (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ----- CSS RESET & VARIABLES (cohesive, deep palette) ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --night-sky: #0B1026;       /* deep almost-black blue */
+            --horizon-glow: #1B2B4F;    /* rich navy with a hint of life */
+            --ember: #F26B5E;            /* sharp coral accent, not purple */
+            --dusty-rose: #C89F9C;       /* muted warm contrast */
+            --text-light: #EAEFF5;        /* off-white for readability */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--night-sky);
+            /* Layered gradient + geometric pattern (atmosphere & depth) */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(242, 107, 94, 0.08) 0%, transparent 30%),
+                radial-gradient(circle at 90% 70%, rgba(200, 159, 156, 0.06) 0%, transparent 35%),
+                linear-gradient(145deg, var(--night-sky) 0%, var(--horizon-glow) 100%);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            line-height: 1.6;
+            /* subtle geometric overlay */
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* main content layer above the pattern */
+        .centerpiece {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            animation: fadeGlideUp 1.2s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+            opacity: 0; /* starts invisible, revealed by animation */
+        }
+
+        /* ----- STAGGERED REVEALS (orchestrated page load) ----- */
+        .title-block {
+            opacity: 0;
+            animation: fadeGlideUp 1s ease-out forwards;
+            animation-delay: 0.1s;
+        }
+
+        .brand {
+            opacity: 0;
+            animation: fadeGlideUp 0.9s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+
+        .search-container {
+            opacity: 0;
+            animation: fadeGlideUp 1s ease-out forwards;
+            animation-delay: 0.6s;
+        }
+
+        .footnote {
+            opacity: 0;
+            animation: fadeGlideUp 1s ease-out forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes fadeGlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ----- TYPOGRAPHY (distinctive) ----- */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: clamp(3rem, 15vw, 5.5rem);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            background: linear-gradient(130deg, #fff 20%, var(--dusty-rose) 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.2rem;
+            text-shadow: 0 0 20px rgba(242, 107, 94, 0.2);
+        }
+
+        .brand {
+            font-size: 1.4rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            word-spacing: 8px;
+            color: var(--dusty-rose);
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            backdrop-filter: blur(2px);
+        }
+
+        /* ----- SEARCH BAR (modern glassmorphism) ----- */
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 60px;
+            padding: 0.3rem 0.3rem 0.3rem 1.8rem;
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.05);
+            transition: box-shadow 0.3s, border-color 0.2s;
+        }
+
+        .search-wrapper:focus-within {
+            border-color: rgba(242, 107, 94, 0.5);
+            box-shadow: 0 20px 45px -15px var(--ember), inset 0 1px 2px rgba(255,255,255,0.1);
+        }
+
+        .search-wrapper i {
+            color: var(--ember);
+            font-size: 1.3rem;
+            opacity: 0.8;
+        }
+
+        #searchInput {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 1.2rem 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: white;
+            outline: none;
+            min-width: 0; /* flex overflow fix */
+        }
+
+        #searchInput::placeholder {
+            color: rgba(255,255,255,0.35);
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+
+        #searchButton {
+            background: var(--ember);
+            border: none;
+            border-radius: 60px;
+            padding: 0.9rem 2.2rem;
+            margin: 0.2rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #0B1026;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(242, 107, 94, 0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        #searchButton:hover {
+            background: #ff8578;
+            transform: scale(1.02);
+            box-shadow: 0 8px 18px rgba(242, 107, 94, 0.5);
+        }
+
+        #searchButton:active {
+            transform: scale(0.98);
+        }
+
+        /* small footnote */
+        .footnote {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            letter-spacing: 1.5px;
+            font-weight: 300;
+            color: var(--dusty-rose);
+        }
+
+        /* responsive touch */
+        @media (max-width: 500px) {
+            .search-wrapper {
+                flex-wrap: wrap;
+                background: rgba(0,0,0,0.3);
+                border-radius: 40px;
+            }
+            #searchInput {
+                padding: 1rem 0.8rem;
+                font-size: 1rem;
+            }
+            #searchButton {
+                padding: 0.7rem 1.5rem;
+                margin: 0.2rem 0.2rem 0.2rem auto;
+            }
+            .brand {
+                font-size: 1rem;
+                letter-spacing: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="centerpiece">
+        <div class="title-block">
+            <h1>RS Browser</h1>
+        </div>
+        <div class="brand">
+            <span>horizon</span>
+        </div>
+
+        <!-- Search container with working search logic -->
+        <div class="search-container">
+            <div class="search-wrapper">
+                <i class="fas fa-compass"></i>
+                <input type="text" id="searchInput" placeholder="explore or search..." value="">
+                <button id="searchButton">GO</button>
+            </div>
+        </div>
+
+        <div class="footnote">
+            <span>✦ navigate beyond the familiar ✦</span>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // Get references to elements
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+
+            // Function to perform the search or load URL
+            function performSearch() {
+                let query = searchInput.value.trim();
+                if (query === '') return;
+
+                // Check if it looks like a domain (very simple regex: contains at least one dot, no spaces)
+                // If it looks like a URL, redirect to that site with https://
+                // Otherwise, Google search.
+                let url;
+                // matches strings like "example.com", "sub.domain.org", but not if it contains spaces or starts with http
+                const domainPattern = /^[^\s]+\.[^\s]{2,}$/; // simplistic but works for typical input
+
+                if (domainPattern.test(query) && !query.startsWith('http')) {
+                    url = 'https://' + query;
+                } else if (query.startsWith('http://') || query.startsWith('https://')) {
+                    url = query; // keep as is
+                } else {
+                    // Google search
+                    url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+                }
+
+                // Redirect current browser (WebView) to the url
+                window.location.href = url;
+            }
+
+            // Event listeners
+            searchButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                performSearch();
+            });
+
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    performSearch();
+                }
+            });
+
+            // Optional: put focus into input for immediate typing
+            searchInput.focus();
+        })();
+    </script>
+</body>
+</html>
