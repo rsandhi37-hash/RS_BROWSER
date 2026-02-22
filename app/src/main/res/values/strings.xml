@@ -109,7 +109,7 @@
     <string name="message_text_copied">Text copied to clipboard</string>
     <string name="message_link_copied">Link copied to clipboard</string>
     <string name="message_blocked_local">Local file has been blocked from loading</string>
-    <string name="licenses">Open Source Licenses</string>
+    <string name="licenses">Proprietary License (Rehan Sandhi)</string>
     <string name="suggestion">Search for</string>
 
     <!-- Ad block -->
@@ -229,7 +229,7 @@
     <string name="loading_failed">Couldn\'t load anything from the page.</string>
     <string name="snacktory">Snacktory</string>
     <string name="jsoup">jsoup: Java HTML Parser</string>
-    <string name="mit_license">MIT License</string>
+    <string name="mit_license">Proprietary License (Rehan Sandhi)</string>
     <string name="url_contents">URL box contents</string>
     <string name="text_encoding">Text encoding</string>
     <string-array name="url_content_array">
