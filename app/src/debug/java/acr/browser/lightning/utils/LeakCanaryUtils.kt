@@ -1,11 +1,10 @@
 package acr.browser.lightning.utils
 
 import acr.browser.lightning.preference.DeveloperPreferences
-import leakcanary.LeakCanary
 import javax.inject.Inject
 
 /**
- * Sets up LeakCanary.
+ * Sets up LeakCanary. (Removed)
  */
 class LeakCanaryUtils @Inject constructor(private val developerPreferences: DeveloperPreferences) {
 
@@ -13,9 +12,7 @@ class LeakCanaryUtils @Inject constructor(private val developerPreferences: Deve
      * Setup LeakCanary
      */
     fun setup() {
-        LeakCanary.config = LeakCanary.config.copy(
-            dumpHeap = developerPreferences.useLeakCanary
-        )
+        // LeakCanary ka code yahan se hamesha ke liye hata diya gaya hai
     }
 
 }
