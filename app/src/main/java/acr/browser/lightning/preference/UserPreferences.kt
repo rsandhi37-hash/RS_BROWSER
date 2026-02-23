@@ -227,7 +227,7 @@ class UserPreferences @Inject constructor(
 
     var tabConfiguration by preferences.enumPreference(
         TAB_CONFIGURATION, if (showTabsInDrawer) {
-            TabConfiguration.DRAWER
+            TabConfiguration.DRAWER_SIDE
         } else {
             TabConfiguration.DESKTOP
         }
