@@ -141,9 +141,6 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
     implementation("io.reactivex.rxjava3:rxkotlin:3.0.1")
 
-    // memory leak analysis
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
-
     // kotlin
     val kotlin = "2.3.10"
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin")
