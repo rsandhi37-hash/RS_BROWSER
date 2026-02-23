@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RS Browser · Horizon</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -21,40 +21,25 @@
             --ember: #F26B5E;
             --dusty-rose: #C89F9C;
             --text-light: #EAEFF5;
-            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-bg: rgba(255, 255, 255, 0.02);
             --glass-border: rgba(255, 255, 255, 0.08);
+            --search-bg: rgba(255, 255, 255, 0.05);
         }
 
         body {
             min-height: 100vh;
-            height: 100vh;
             background: var(--night-sky);
             background-image: 
                 radial-gradient(circle at 10% 20%, rgba(242, 107, 94, 0.08) 0%, transparent 30%),
                 radial-gradient(circle at 90% 70%, rgba(200, 159, 156, 0.06) 0%, transparent 35%),
                 linear-gradient(145deg, var(--night-sky) 0%, var(--horizon-glow) 100%);
             font-family: 'Poppins', sans-serif;
-            font-weight: 300;
             color: var(--text-light);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
-            line-height: 1.6;
             position: relative;
-            overflow: hidden;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 30px;
-            background: var(--night-sky);
-            z-index: 9999;
-            pointer-events: none;
         }
 
         body::before {
@@ -70,153 +55,40 @@
         .centerpiece {
             position: relative;
             z-index: 2;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             text-align: center;
             animation: fadeGlideUp 1.2s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
             opacity: 0;
-            transform: translateY(-10%);
+            margin-top: -3vh;
         }
 
         @keyframes fadeGlideUp {
             0% {
                 opacity: 0;
-                transform: translateY(20px) translateY(-10%);
+                transform: translateY(20px);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0) translateY(-10%);
+                transform: translateY(0);
             }
         }
 
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--night-sky);
-            z-index: 10000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .loading-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 3px solid var(--glass-border);
-            border-top-color: var(--ember);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .error-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--night-sky);
-            z-index: 10001;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .error-screen.show {
-            display: flex;
-        }
-
-        .error-content {
-            text-align: center;
-            max-width: 400px;
-            padding: 2rem;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-        }
-
-        .error-content i {
-            font-size: 4rem;
-            color: var(--ember);
-            margin-bottom: 1rem;
-        }
-
-        .error-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--dusty-rose);
-        }
-
-        .error-content p {
-            margin-bottom: 2rem;
-            opacity: 0.8;
-        }
-
-        .error-content button {
-            background: var(--ember);
-            border: none;
-            border-radius: 60px;
-            padding: 0.9rem 2.2rem;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
-            color: #0B1026;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .error-content button:hover {
-            background: #ff8578;
-            transform: scale(1.02);
-        }
-
-        .title-block {
+        .title-block, .brand, .search-container, .highlights-section, .footnote {
             opacity: 0;
             animation: fadeGlideUp 1s ease-out forwards;
-            animation-delay: 0.1s;
         }
 
-        .brand {
-            opacity: 0;
-            animation: fadeGlideUp 0.9s ease-out forwards;
-            animation-delay: 0.3s;
-        }
-
-        .search-container {
-            opacity: 0;
-            animation: fadeGlideUp 1s ease-out forwards;
-            animation-delay: 0.6s;
-        }
-
-        .footnote {
-            opacity: 0;
-            animation: fadeGlideUp 1s ease-out forwards;
-            animation-delay: 1s;
-        }
+        .title-block { animation-delay: 0.1s; }
+        .brand { animation-delay: 0.3s; }
+        .search-container { animation-delay: 0.6s; }
+        .highlights-section { animation-delay: 0.9s; }
+        .footnote { animation-delay: 1.2s; }
 
         h1 {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
             font-size: clamp(3rem, 15vw, 5.5rem);
-            letter-spacing: -0.02em;
-            line-height: 1.1;
             background: linear-gradient(130deg, #fff 20%, var(--dusty-rose) 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -226,101 +98,96 @@
         }
 
         .brand {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 300;
             letter-spacing: 6px;
             text-transform: uppercase;
-            word-spacing: 8px;
             color: var(--dusty-rose);
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             border-bottom: 1px solid var(--glass-border);
             display: inline-block;
             padding-bottom: 0.5rem;
-            backdrop-filter: blur(2px);
         }
 
+        /* Google Style Search Bar */
         .search-wrapper {
             display: flex;
             align-items: center;
-            background: var(--glass-bg);
+            background: var(--search-bg);
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
-            border-radius: 60px;
-            padding: 0.3rem 0.3rem 0.3rem 1.8rem;
-            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.05);
-            transition: box-shadow 0.3s, border-color 0.2s;
+            border-radius: 40px;
+            padding: 0.2rem 0.2rem 0.2rem 1.8rem;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.3);
+            max-width: 650px;
+            margin: 0 auto;
+            transition: all 0.2s ease;
+        }
+
+        .search-wrapper:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 1px 8px rgba(242, 107, 94, 0.2);
         }
 
         .search-wrapper:focus-within {
-            border-color: rgba(242, 107, 94, 0.5);
-            box-shadow: 0 20px 45px -15px var(--ember), inset 0 1px 2px rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--ember);
+            box-shadow: 0 1px 10px rgba(242, 107, 94, 0.3);
         }
 
         .search-wrapper i {
             color: var(--ember);
-            font-size: 1.3rem;
-            opacity: 0.8;
+            font-size: 1.2rem;
+            opacity: 0.9;
         }
 
         #searchInput {
             flex: 1;
             background: transparent;
             border: none;
-            padding: 1.2rem 1rem;
+            padding: 0.9rem 1rem;
             font-family: 'Poppins', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 300;
+            font-size: 1.1rem;
+            font-weight: 400;
             color: white;
             outline: none;
-            min-width: 0;
         }
 
         #searchInput::placeholder {
-            color: rgba(255,255,255,0.35);
+            color: rgba(255,255,255,0.4);
             font-weight: 300;
-            letter-spacing: 0.3px;
         }
 
-        #searchButton {
+        .search-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            padding-right: 0.2rem;
+        }
+
+        .search-btn {
             background: var(--ember);
             border: none;
-            border-radius: 60px;
-            padding: 0.9rem 2.2rem;
-            margin: 0.2rem;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 1.1rem;
+            padding: 0.6rem 1.8rem;
+            border-radius: 40px;
             color: #0B1026;
-            letter-spacing: 1px;
+            font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(242, 107, 94, 0.3);
-            border: 1px solid rgba(255,255,255,0.1);
+            letter-spacing: 0.5px;
         }
 
-        #searchButton:hover {
+        .search-btn:hover {
             background: #ff8578;
             transform: scale(1.02);
-            box-shadow: 0 8px 18px rgba(242, 107, 94, 0.5);
+            box-shadow: 0 4px 12px rgba(242, 107, 94, 0.3);
         }
 
-        #searchButton:active {
-            transform: scale(0.98);
-        }
-
-        .footnote {
-            margin-top: 3rem;
-            font-size: 0.9rem;
-            opacity: 0.6;
-            letter-spacing: 1.5px;
-            font-weight: 300;
-            color: var(--dusty-rose);
-        }
-
-        /* DuckDuckGo logo style */
         .search-info {
-            margin-top: 1rem;
-            font-size: 0.85rem;
+            margin-top: 0.8rem;
+            font-size: 0.8rem;
             color: var(--dusty-rose);
             opacity: 0.7;
             display: flex;
@@ -329,63 +196,144 @@
             gap: 0.5rem;
         }
 
-        .search-info i {
-            color: var(--ember);
+        .highlights-section {
+            margin-top: 3.5rem;
+        }
+
+        .section-title {
             font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--dusty-rose);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 1px;
+            background: var(--glass-border);
+        }
+
+        .section-title::before { left: calc(50% - 100px); }
+        .section-title::after { right: calc(50% - 100px); }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .highlight-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.3rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: left;
+            position: relative;
+        }
+
+        .highlight-card:hover {
+            border-color: var(--ember);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -15px var(--ember);
+            background: rgba(242, 107, 94, 0.05);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(242, 107, 94, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon i {
+            font-size: 1.2rem;
+            color: var(--ember);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-url {
+            font-size: 0.7rem;
+            color: var(--dusty-rose);
+            opacity: 0.8;
+            margin-bottom: 0.8rem;
+            font-family: monospace;
+            word-break: break-all;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--ember);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(242, 107, 94, 0.2);
+            color: var(--ember);
+            font-size: 0.6rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            border: 1px solid rgba(242, 107, 94, 0.3);
+        }
+
+        .footnote {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            color: var(--dusty-rose);
+        }
+
+        @media (max-width: 768px) {
+            .highlights-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 500px) {
-            .centerpiece {
-                transform: translateY(-5%);
+            .highlights-grid {
+                grid-template-columns: 1fr;
             }
-            
-            @keyframes fadeGlideUp {
-                0% {
-                    opacity: 0;
-                    transform: translateY(20px) translateY(-5%);
-                }
-                100% {
-                    opacity: 1;
-                    transform: translateY(0) translateY(-5%);
-                }
-            }
-            
             .search-wrapper {
                 flex-wrap: wrap;
-                background: rgba(0,0,0,0.3);
-                border-radius: 40px;
+                padding: 0.2rem;
             }
             #searchInput {
-                padding: 1rem 0.8rem;
-                font-size: 1rem;
+                width: 100%;
             }
-            #searchButton {
-                padding: 0.7rem 1.5rem;
-                margin: 0.2rem 0.2rem 0.2rem auto;
-            }
-            .brand {
-                font-size: 1rem;
-                letter-spacing: 4px;
+            .search-btn {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loader"></div>
-    </div>
-
-    <!-- Error Screen -->
-    <div class="error-screen" id="errorScreen">
-        <div class="error-content">
-            <i class="fas fa-exclamation-triangle"></i>
-            <h2>Connection Lost</h2>
-            <p>Network issue detected. Please check your internet connection and try again.</p>
-            <button onclick="retryConnection()">Try Again</button>
-        </div>
-    </div>
-
     <div class="centerpiece">
         <div class="title-block">
             <h1>RS Browser</h1>
@@ -396,14 +344,22 @@
 
         <div class="search-container">
             <div class="search-wrapper">
-                <i class="fas fa-compass"></i>
-                <input type="text" id="searchInput" placeholder="Search or type a URL..." value="">
-                <button id="searchButton">GO</button>
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search with RS or type URL..." value="">
+                <div class="search-actions">
+                    <button class="search-btn" id="searchButton">Search</button>
+                </div>
             </div>
             <div class="search-info">
                 <i class="fas fa-lock"></i>
-                <span>Private search by RS Browser</span>
+                <span>Private search by DuckDuckGo</span>
             </div>
+        </div>
+
+        <!-- Highlights Section -->
+        <div class="highlights-section">
+            <div class="section-title">RS ECOSYSTEM</div>
+            <div class="highlights-grid" id="highlightsGrid"></div>
         </div>
 
         <div class="footnote">
@@ -413,58 +369,38 @@
 
     <script>
         (function() {
-            const loadingScreen = document.getElementById('loadingScreen');
-            const errorScreen = document.getElementById('errorScreen');
             const searchInput = document.getElementById('searchInput');
             const searchButton = document.getElementById('searchButton');
+            const highlightsGrid = document.getElementById('highlightsGrid');
 
-            // Hide loading screen after page load
-            window.addEventListener('load', function() {
-                setTimeout(function() {
-                    loadingScreen.classList.add('hidden');
-                }, 500);
-            });
+            // Websites data
+            const websites = [
+                { name: 'RS Digital Ecosystem', url: 'rehansandhi.netlify.app', icon: 'fa-cloud', desc: 'Digital Hub', badge: 'ECO' },
+                { name: 'Rehan Sandhi Blog', url: 'rehan-sandhi.blogspot.com', icon: 'fa-blog', desc: 'Articles & Posts', badge: 'BLOG' },
+                { name: 'Rehan Sandhi Portfolio', url: 'rehansandhi181.blogspot.com', icon: 'fa-briefcase', desc: 'Portfolio', badge: 'WORK' },
+                { name: 'RS App Store', url: 'rs-appstore.blogspot.com', icon: 'fa-store', desc: 'Apps & Downloads', badge: 'STORE' },
+                { name: 'Noor Shayari Platform', url: 'noor-in.netlify.app', icon: 'fa-feather', desc: 'Urdu Poetry', badge: 'NOOR' },
+                { name: 'RS Secure Chat', url: 'rsandhi37-hash.github.io/RS-CHAT/', icon: 'fa-lock', desc: 'Encrypted Chat', badge: 'SECURE' }
+            ];
 
-            // Network status check
-            function checkNetwork() {
-                if (!navigator.onLine) {
-                    errorScreen.classList.add('show');
-                } else {
-                    errorScreen.classList.remove('show');
-                }
+            // Render highlights
+            function renderHighlights() {
+                highlightsGrid.innerHTML = websites.map(site => `
+                    <div class="highlight-card" onclick="window.open('https://${site.url}', '_blank')">
+                        <span class="badge">${site.badge}</span>
+                        <div class="card-icon"><i class="fas ${site.icon}"></i></div>
+                        <div class="card-title">${site.name}</div>
+                        <div class="card-url">${site.url}</div>
+                        <div class="card-desc"><i class="fas fa-arrow-right"></i><span>${site.desc}</span></div>
+                    </div>
+                `).join('');
             }
+            renderHighlights();
 
-            // Retry connection
-            window.retryConnection = function() {
-                if (navigator.onLine) {
-                    errorScreen.classList.remove('show');
-                } else {
-                    alert('Still offline. Please check your connection.');
-                }
-            };
-
-            // Listen for online/offline events
-            window.addEventListener('online', function() {
-                errorScreen.classList.remove('show');
-            });
-
-            window.addEventListener('offline', function() {
-                errorScreen.classList.add('show');
-            });
-
-            // Initial network check
-            checkNetwork();
-
-            // Function to perform search/URL navigation with DuckDuckGo
+            // Search function
             function performSearch() {
                 let query = searchInput.value.trim();
                 if (query === '') return;
-
-                // Check network before proceeding
-                if (!navigator.onLine) {
-                    errorScreen.classList.add('show');
-                    return;
-                }
 
                 let url;
                 const domainPattern = /^[^\s]+\.[^\s]{2,}$/;
@@ -474,24 +410,19 @@
                 } else if (query.startsWith('http://') || query.startsWith('https://')) {
                     url = query;
                 } else {
-                    // DuckDuckGo search (privacy focused)
                     url = 'https://duckduckgo.com/?q=' + encodeURIComponent(query);
                 }
 
-                // Try to navigate, show error if fails
-                try {
-                    window.location.href = url;
-                } catch (error) {
-                    errorScreen.classList.add('show');
-                }
+                window.location.href = url;
             }
 
-            // Event listeners
+            // Search button click
             searchButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 performSearch();
             });
 
+            // Enter key
             searchInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -499,15 +430,8 @@
                 }
             });
 
-            // Focus input
             searchInput.focus();
-
-            // Hide address bar on mobile
-            if ('scrollRestoration' in history) {
-                history.scrollRestoration = 'manual';
-            }
-            window.scrollTo(0, 1);
         })();
     </script>
 </body>
-</html>
+    </html>
