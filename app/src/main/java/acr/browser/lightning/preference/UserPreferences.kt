@@ -203,7 +203,7 @@ class UserPreferences @Inject constructor(
     /**
      * The index of the theme used by the application.
      */
-    var useTheme by preferences.enumPreference(THEME, AppTheme.LIGHT)
+    var useTheme by preferences.enumPreference(THEME, AppTheme.BLACK)
 
     /**
      * The text encoding used by the browser.
@@ -227,7 +227,7 @@ class UserPreferences @Inject constructor(
 
     var tabConfiguration by preferences.enumPreference(
         TAB_CONFIGURATION, if (showTabsInDrawer) {
-            TabConfiguration.DRAWER_BOTTOM
+            TabConfiguration.DRAWER_TOP
         } else {
             TabConfiguration.DESKTOP
         }
@@ -242,7 +242,7 @@ class UserPreferences @Inject constructor(
     /**
      * True if the browser should save form data, false otherwise.
      */
-    var saveDataEnabled by preferences.booleanPreference(SAVE_DATA, false)
+    var saveDataEnabled by preferences.booleanPreference(SAVE_DATA, true)
 
     /**
      * True if the browser should attempt to remove identifying headers in GET requests, false if
