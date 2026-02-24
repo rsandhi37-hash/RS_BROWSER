@@ -1,56 +1,38 @@
-# Lightning Browser [![Build](https://github.com/anthonycr/Lightning-Browser/actions/workflows/action.yml/badge.svg)](https://github.com/anthonycr/Lightning-Browser/actions/workflows/action.yml)
+<p align="center">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEih1H4s5FXvS_tdxn0B3oVAtcpFeh9KOuWKJe0piiHN-cNb_UaxmPHtAVJW6FRdpcdFjI46aK3nyyEjSrzLfyQsQJc53iujIkw_oVkoZEuIAqZoOeESb_o-t8fl086gCVr9-kkM5CYIZbzE1Uc0d_O6urFFsB9aKMKr417Pv4bDn9v5Yp27bffwjcML10PS/s512/21394.jpg" width="180" alt="RS Browser Logo">
+</p>
 
-### Speed, Simplicity, Security
-![](launcher_icon_small.png)
+<h1 align="center">RS Browser</h1>
 
-### Download
-[<img src="https://f-droid.org/badge/get-it-on.png"
-      alt="Get it on F-Droid"
-      height="80">](https://f-droid.org/app/acr.browser.lightning) [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" 
-alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=acr.browser.lightning)
+<p align="center">
+  <strong>A Fast, Secure, and Premium Android Browser</strong><br>
+  <i>Developed by Rehan Sandhi</i>
+</p>
 
-### Features
-* Bookmarks
+---
 
-* History
+## 🌟 Overview
+**RS Browser** is a lightweight, privacy-focused, and highly customizable web browser designed for the modern Android experience. It seamlessly integrates with the **RS Ecosystem**, providing a clean, distraction-free environment with premium features.
 
-* Multiple search engines (Google, Bing, Yahoo, StartPage, DuckDuckGo, etc.)
+## ✨ Key Features
+* **AMOLED Dark Theme**: Deep black UI optimized for battery saving and premium eye comfort.
+* **Intuitive Navigation**: Modern Top Navigation Drawer for seamless tab management.
+* **Privacy First**: Powered by DuckDuckGo private search and a built-in AdBlock engine.
+* **Fast & Lightweight**: Optimized for speed, requesting 'Save-Data' by default for a smoother web experience.
+* **RS Ecosystem Integration**: One-click access to the entire RS digital world directly from the default bookmarks.
 
-* Incognito mode
+## 🔗 The RS Ecosystem
+Explore the digital world created by Rehan Sandhi:
+* [RS Digital Ecosystem](https://rehansandhi.netlify.app)
+* [Rehan Sandhi Portfolio](https://rehansandhi181.blogspot.com)
+* [RS App Store](https://rs-appstore.blogspot.com)
+* [Noor Shayari Platform](https://noor-in.netlify.app)
+* [RS Secure Chat](https://rsandhi37-hash.github.io/RS-CHAT/)
 
-* Unique utilization of navigation drawer or bottom drawer for tabs
+## 👨‍💻 About the Developer
+**Rehan Sandhi** is a Full-Stack Web Developer passionate about creating elegant, user-centric applications and digital ecosystems.
+* **Instagram**: [@rehan_sandhi_181](https://instagram.com/rehan_sandhi_181)
+* **Contact**: DM for Paid Projects & Collaborations.
 
-* Customizable search suggestions
-
-### Permissions
-
-#### Automatically granted
-* `INTERNET`: necessary to access the internet.
-* `ACCESS_NETWORK_STATE`: used by the browser to stop loading resources when network access is lost.
-* `INSTALL_SHORTCUT`: used to add shortcuts with the "Add to home screen" option.
-* `POST_NOTIFICATIONS`: used to display notifications.
-
-#### Requested only when needed
-* `WRITE_EXTERNAL_STORAGE`: needed to download files and export bookmarks.
-* `READ_EXTERNAL_STORAGE`: needed to download files and import bookmarks.
-* `ACCESS_FINE_LOCATION`: needed for sites like Google Maps, requires "Location access" option to be enabled (default disabled).
-* `RECORD_AUDIO`: needed to support WebRTC, requires "WebRTC Support" option to be enabled (default disabled).
-* `CAMERA`: needed to support WebRTC, requires "WebRTC Support" option to be enabled (default disabled).
-* `MODIFY_AUDIO_SETTINGS`: needed to support WebRTC, requires "WebRTC Support" option to be enabled (default disabled).
-
-### Contributing
-* Contributions are always welcome
-* Make pull requests into the `main` branch.
-
-### License
-```
-Copyright 2014 Anthony Restaino
-
-Lightning Browser
-
-   This Source Code Form is subject to the terms of the 
-   Mozilla Public License, v. 2.0. If a copy of the MPL 
-   was not distributed with this file, You can obtain one at 
-   
-   http://mozilla.org/MPL/2.0/
-```
+---
+*Disclaimer: RS Browser respects open-source software. Core engine licenses and legal information can be securely found within the app's Settings > About > Legal Information.*
