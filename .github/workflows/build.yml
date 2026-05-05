@@ -24,4 +24,3 @@ jobs:
         with:
           name: RS-Browser-Package
           path: build-output/RS-Browser-v1.apk
-          #r
