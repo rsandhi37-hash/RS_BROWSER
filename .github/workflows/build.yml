@@ -1,5 +1,8 @@
 name: Build RS Browser
-on: [push]
+
+on:
+  # Har commit par build nahi hogi, sirf jab aap manual button dabayenge
+  workflow_dispatch:
 
 jobs:
   build:
@@ -18,18 +21,22 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Get SHA256 Fingerprint
+        # Isse logs mein aapko fingerprint mil jayegi assetlinks.json ke liye
+        run: ./gradlew signingReport
+
       - name: Build with Gradle
         run: ./gradlew assembleDebug
-        run: ./gradlew signingReport
 
       - name: Rename and Move APK
         run: |
           mkdir -p build-output
-          # Yeh command poore project mein APK dhoond kar rename karegi
-          find app/build/outputs/apk/ -name "*.apk" -exec cp {} build-output/RS-Browser-v1.apk \;
+          # Poore project folder mein APK dhoond kar move karega
+          find . -name "*.apk" -type f -exec cp {} build-output/RS-Browser-v2.apk \;
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: RS-Browser-Package
-          path: build-output/RS-Browser-v3.apk
+          name: RS-Browser-Package-v2
+          path: build-output/RS-Browser-v2.apk
+
