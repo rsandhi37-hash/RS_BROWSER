@@ -4,9 +4,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4 # Updated to v4
       - name: set up JDK 11
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4 # Updated to v4
         with:
           java-version: '11'
           distribution: 'temurin'
@@ -17,10 +17,11 @@ jobs:
         run: ./gradlew assembleDebug
       - name: Rename and Move APK
         run: |
-          mkdir build-output
-          cp app/build/outputs/apk/debug/app-debug.apk build-output/RS-Browser-v1.apk
+          mkdir -p build-output
+          cp app/build/outputs/apk/debug/*.apk build-output/RS-Browser-v1.apk
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # Updated to v4 (Yeh asali fix hai!)
         with:
           name: RS-Browser-Package
           path: build-output/RS-Browser-v1.apk
+
