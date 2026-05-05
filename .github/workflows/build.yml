@@ -20,6 +20,7 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew assembleDebug
+        run: ./gradlew signingReport
 
       - name: Rename and Move APK
         run: |
@@ -31,4 +32,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: RS-Browser-Package
-          path: build-output/RS-Browser-v1.apk
+          path: build-output/RS-Browser-v2.apk
