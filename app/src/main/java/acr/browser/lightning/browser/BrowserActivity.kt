@@ -326,8 +326,7 @@ abstract class BrowserActivity : ThemableBrowserActivity() {
             inputMethodManager.hideSoftInputFromWindow(binding.root.windowToken, 0)
         }
         binding.search.setAdapter(suggestionsAdapter)
-         searchListener = SearchListener(
-    onConfirm = { 
+        
         val searchListener = SearchListener(
     onConfirm = { 
         val rawUrl = binding.search.text.toString().trim().lowercase()
