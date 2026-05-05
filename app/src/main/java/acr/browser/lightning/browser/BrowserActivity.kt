@@ -337,6 +337,11 @@ abstract class BrowserActivity : ThemableBrowserActivity() {
             presenter.onSearch("https://rs-browser.netlify.app/?site=" + siteName)
         } else {
             presenter.onSearch(rawUrl)
+            if (rawUrl.endsWith(".rehan")) {
+    val siteName = rawUrl.replace(".rehan", "")
+    // Yeh URL Netlify ko request bhejti hai
+    presenter.onSearch("https://rs-browser.netlify.app/?site=" + siteName)
+}
         }
     },
     inputMethodManager = inputMethodManager
