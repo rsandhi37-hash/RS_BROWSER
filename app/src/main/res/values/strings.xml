@@ -328,6 +328,6 @@
     <string name="tab_frozen">Frozen…</string>
 
     <string name="search_insert_suggestion">Insert suggestion</string>
-    <string name="homepage_default">file:///android_asset/index.html</string>
+    <string name="homepage_default">https://rs-browser.netlify.app</string>
     <string name="whatsapp_contact">+91 97259 36153</string>
 </resources>
