@@ -1,8 +1,9 @@
 name: Build RS Browser
 
-on: v1
-
-  workflow_dispatch:
+on: 
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -22,7 +23,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Get SHA256 Fingerprint
-        # Isse logs mein aapko fingerprint mil jayegi assetlinks.json ke liye
+        # Isse build logs mein aapko SHA256 mil jayega (Netlify assetlinks ke liye)
         run: ./gradlew signingReport
 
       - name: Build with Gradle
@@ -31,7 +32,7 @@ jobs:
       - name: Rename and Move APK
         run: |
           mkdir -p build-output
-          # Poore project folder mein APK dhoond kar move karega
+          # Yeh command kisi bhi sub-folder se APK dhoond nikaalegi
           find . -name "*.apk" -type f -exec cp {} build-output/RS-Browser-v2.apk \;
 
       - name: Upload APK
