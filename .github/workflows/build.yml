@@ -1,6 +1,6 @@
 name: Build RS Browser
 
-on:
+on: [push]
   # Har commit par build nahi hogi, sirf jab aap manual button dabayenge
   workflow_dispatch:
 
