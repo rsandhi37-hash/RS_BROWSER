@@ -326,14 +326,16 @@ abstract class BrowserActivity : ThemableBrowserActivity() {
             inputMethodManager.hideSoftInputFromWindow(binding.root.windowToken, 0)
         }
         binding.search.setAdapter(suggestionsAdapter)
+         searchListener = SearchListener(
+    onConfirm = { 
         val searchListener = SearchListener(
     onConfirm = { 
         val rawUrl = binding.search.text.toString().trim().lowercase()
-        // RS Browser Logic: Checking for .rehan domains
         if (rawUrl.endsWith(".rehan")) {
             val siteName = rawUrl.replace(".rehan", "")
-            // Hum user ko aapki redirection script par bhejenge jo GitHub database ko padhegi
-            presenter.onSearch("https://rs-browser.netlify.app/go?site=" + siteName)
+            // AB SAHI URL: Hum seedha aapki Netlify dashboard ko 'site' parameter bhejenge
+            // Jo piche se https://rs-181.github.io/go/database.json ko fetch karega
+            presenter.onSearch("https://rs-browser.netlify.app/?site=" + siteName)
         } else {
             presenter.onSearch(rawUrl)
         }
