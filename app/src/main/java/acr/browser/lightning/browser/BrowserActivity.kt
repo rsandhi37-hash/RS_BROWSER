@@ -418,7 +418,18 @@ abstract class BrowserActivity : ThemableBrowserActivity() {
     fun renderState(viewState: PartialBrowserViewState) {
         viewState.isBackEnabled?.let { binding.actionBack.isEnabled = it }
         viewState.isForwardEnabled?.let { binding.actionForward.isEnabled = it }
-        viewState.displayUrl?.let(binding.search::setText)
+        viewState.displayUrl?.let { url ->
+    if (url.contains("rs-browser.netlify.app/?site=")) {
+        // Agar Netlify wali redirection URL hai, toh address bar mein sirf .rehan dikhao
+        val maskedUrl = url.substringAfter("?site=") + ".rehan"
+        binding.search.setText(maskedUrl)
+    } else if (url == "https://rs-browser.netlify.app/") {
+        binding.search.setText("home.rehan")
+    } else {
+        binding.search.setText(url)
+    }
+}
+
         viewState.sslState?.let {
             binding.searchSslStatus.setImageDrawable(createSslDrawableForState(it))
             binding.searchSslStatus.updateVisibilityForDrawable()
